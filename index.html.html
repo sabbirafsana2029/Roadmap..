@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Donor App — Complete Project Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #09090b;
+    --bg2: #111114;
+    --bg3: #18181c;
+    --bg4: #1e1e24;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --border-accent: rgba(220,38,38,0.4);
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-tertiary: #52525b;
+    --accent: #dc2626;
+    --accent-soft: rgba(220,38,38,0.12);
+    --accent-glow: rgba(220,38,38,0.06);
+    --gold: #c9a84c;
+    --gold-soft: rgba(201,168,76,0.1);
+    --teal: #2dd4bf;
+    --teal-soft: rgba(45,212,191,0.1);
+    --amber: #f59e0b;
+    --amber-soft: rgba(245,158,11,0.1);
+    --violet: #8b5cf6;
+    --violet-soft: rgba(139,92,246,0.1);
+    --emerald: #10b981;
+    --emerald-soft: rgba(16,185,129,0.1);
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grid texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial accent glow top */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(220,38,38,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    padding: 64px 0 52px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 52px;
+  }
+
+  .header-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding: 5px 12px;
+    border: 1px solid var(--border-accent);
+    border-radius: 4px;
+    background: var(--accent-glow);
+  }
+
+  .header-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .site-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .site-header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .site-header .sub {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+    max-width: 540px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .meta-val {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .meta-val span {
+    font-size: 13px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-left: 4px;
+  }
+
+  /* ─── FILTER BAR ─── */
+  .filter-wrap {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-right: 4px;
+  }
+
+  .filter-btn {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    letter-spacing: 0.01em;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+    background: var(--bg3);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ─── PHASE LIST ─── */
+  .phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 80px;
+  }
+
+  .phase-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .phase-card:hover {
+    border-color: var(--border-hover);
+  }
+
+  .phase-card.open {
+    background: var(--bg3);
+    border-color: var(--border-hover);
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .phase-card.open .phase-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-num-wrap {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .phase-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .cat-planning .phase-num { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.25); }
+  .cat-design   .phase-num { background: rgba(16,185,129,0.1); color: #34d399; border-color: rgba(16,185,129,0.25); }
+  .cat-dev      .phase-num { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+  .cat-deploy   .phase-num { background: rgba(220,38,38,0.1);  color: #f87171; border-color: rgba(220,38,38,0.25); }
+  .cat-maintain .phase-num { background: rgba(139,92,246,0.1); color: #a78bfa; border-color: rgba(139,92,246,0.25); }
+
+  .phase-meta { flex: 1; min-width: 0; }
+
+  .phase-title {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: 0.01em;
+  }
+
+  .phase-subtitle {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+    letter-spacing: 0.01em;
+  }
+
+  .phase-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .badge-cat {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .cat-planning .badge-cat { color: #60a5fa; border-color: rgba(59,130,246,0.2); background: rgba(59,130,246,0.07); }
+  .cat-design   .badge-cat { color: #34d399; border-color: rgba(16,185,129,0.2); background: rgba(16,185,129,0.07); }
+  .cat-dev      .badge-cat { color: #fbbf24; border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.07); }
+  .cat-deploy   .badge-cat { color: #f87171; border-color: rgba(220,38,38,0.2);  background: rgba(220,38,38,0.07); }
+  .cat-maintain .badge-cat { color: #a78bfa; border-color: rgba(139,92,246,0.2); background: rgba(139,92,246,0.07); }
+
+  .badge-time {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+
+  .chevron-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-tertiary);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .phase-card.open .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* ─── PHASE BODY ─── */
+  .phase-body {
+    display: none;
+    padding: 24px 22px;
+  }
+
+  .phase-card.open .phase-body {
+    display: block;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .why-block {
+    padding: 16px 20px;
+    background: var(--bg4);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 24px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .why-block strong {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .body-grid.one-col {
+    grid-template-columns: 1fr;
+  }
+
+  .section-card {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .section-card.full { grid-column: 1 / -1; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .section-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+
+  .section-head-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .item-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .item-list li::before {
+    content: '—';
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  .warn-list li::before { content: '⚠'; font-size: 11px; color: var(--amber); }
+  .check-list li::before { content: '✓'; color: var(--emerald); font-size: 11px; }
+
+  .tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    color: var(--text-tertiary);
+    background: var(--bg3);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tech-tag:hover { color: var(--text-secondary); border-color: var(--border-hover); }
+
+  .dep-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+
+  .dep-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: var(--accent-soft);
+    color: #f87171;
+    border: 1px solid rgba(220,38,38,0.2);
+  }
+
+  .no-dep {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-tertiary);
+    font-style: italic;
+  }
+
+  .checkpoint-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+
+  .checkpoint-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .checkpoint-label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .checkpoint-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .effort-bar-wrap { margin-top: 14px; }
+  .effort-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .effort-bar-bg {
+    height: 3px;
+    background: var(--bg4);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .effort-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .cat-planning .effort-bar-fill { background: #60a5fa; }
+  .cat-design   .effort-bar-fill { background: #34d399; }
+  .cat-dev      .effort-bar-fill { background: #fbbf24; }
+  .cat-deploy   .effort-bar-fill { background: #f87171; }
+  .cat-maintain .effort-bar-fill { background: #a78bfa; }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding: 16px 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    align-items: center;
+  }
+
+  .legend-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-right: 6px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-secondary);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+  }
+
+  .footer-left {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-tertiary);
+  }
+
+  .footer-right {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  /* ─── SCROLL TO TOP ─── */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    z-index: 100;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-top:hover {
+    background: var(--bg4);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .site-header { padding: 40px 0 36px; }
+    .body-grid { grid-template-columns: 1fr; }
+    .header-meta { gap: 20px; }
+    .phase-right .badge-time { display: none; }
+    .site-footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<a class="scroll-top" id="scrollTop" href="#top" title="Back to top">↑</a>
+
+<div class="wrap" id="top">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-eyebrow">SRS v1.0 · Group-05 · Feb 2026</div>
+    <h1>Blood Donor &amp; Receiver<br><em>Complete Project Roadmap by Afsana Zaman</em></h1>
+    <p class="sub">A professional, step-by-step engineering guide from requirements analysis to production deployment — covering every phase, tool, decision, and checkpoint.</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Total Phases</span>
+        <span class="meta-val">19 <span>sequential</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Est. Duration</span>
+        <span class="meta-val">16w <span>avg team</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Beginner</span>
+        <span class="meta-val">20w <span>solo/small</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Professional</span>
+        <span class="meta-val">10w <span>experienced</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Deliverables</span>
+        <span class="meta-val">60+ <span>tasks</span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILTER -->
+  <div class="filter-wrap">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterPhases('all',this)">All phases</button>
+    <button class="filter-btn" onclick="filterPhases('planning',this)">Planning</button>
+    <button class="filter-btn" onclick="filterPhases('design',this)">Design</button>
+    <button class="filter-btn" onclick="filterPhases('dev',this)">Development</button>
+    <button class="filter-btn" onclick="filterPhases('deploy',this)">Deployment</button>
+    <button class="filter-btn" onclick="filterPhases('maintain',this)">Maintenance</button>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span class="legend-label">Category</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#60a5fa"></span>Planning</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#34d399"></span>Design</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#fbbf24"></span>Development</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#f87171"></span>Deployment</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#a78bfa"></span>Maintenance</span>
+  </div>
+
+  <!-- PHASE LIST -->
+  <div class="phase-list" id="phaseList"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span class="footer-left">Blood Donor &amp; Receiver Web Application</span>
+    <span class="footer-right">SRS v1.0 · Group-05 · 14.02.2026</span>
+  </footer>
+
+</div>
+
+<script>
+const phases = [
+  {
+    num: 1, cat: 'planning', title: 'Project Planning & Setup',
+    subtitle: 'Team roles, Git workflow, dev environment',
+    time: '3–5 days', effort: 10,
+    why: 'A poorly planned project leads to scope creep, merge conflicts, and missed deadlines. Planning is the foundation of every real-world software project. Teams that skip this phase spend 3× more time fixing avoidable coordination failures.',
+    tasks: [
+      'Define team roles: Project Manager, Backend Dev, Frontend Dev, DB Admin, Tester',
+      'Create GitHub organisation/repo with branch strategy (main, develop, feature/*)',
+      'Set up project board (GitHub Projects or Trello) with sprint milestones',
+      'Write README with local setup instructions and contribution guidelines',
+      'Agree on coding standards: ESLint/Prettier for JS, PEP8 for Python',
+      'Set up communication channels: Slack/Discord + daily standup schedule',
+      'Create a project charter defining scope, objectives, and success criteria',
+      'Establish definition of "done" for each phase before work begins'
+    ],
+    tools: ['GitHub', 'Trello / GitHub Projects', 'Slack / Discord', 'Notion / Confluence'],
+    mistakes: [
+      'Skipping branch protection rules — leads to broken main branch and lost work',
+      'No coding standards agreed upfront — causes inconsistent code review friction',
+      'Unclear task ownership — work falls through the cracks between team members',
+      'No .gitignore from day one — secrets and node_modules end up in the repository'
+    ],
+    bestpractices: [
+      'Use semantic commit messages: feat:, fix:, docs:, chore:, test:',
+      'Protect main branch — require at least 1 PR review and passing CI before merge',
+      'Never commit .env files — use .env.example with placeholder values instead',
+      'Tag releases with semantic versioning from the very first working build'
+    ],
+    deps: [],
+    checkpoint: 'GitHub repo live, all team members added, project board with Phase 1 tasks marked complete, README accessible'
+  },
+  {
+    num: 2, cat: 'planning', title: 'Requirement Analysis',
+    subtitle: 'Deep-dive the SRS, clarify ambiguities, define MVP',
+    time: '2–3 days', effort: 15,
+    why: 'The SRS is your contract with the project supervisor. Misunderstanding even one requirement — such as the 90-day rule logic or what "near location" means — causes expensive rework in later phases. Every ambiguity resolved now saves days later.',
+    tasks: [
+      'Read the full SRS v1.0 thoroughly as a complete team',
+      'List all functional requirements with priority using MoSCoW method (Must/Should/Could/Won\'t)',
+      'Identify edge cases: what if a donor registers but never donates? What if a receiver cancels a request?',
+      'Clarify the 90-day restriction: enforced per blood type or globally per donor?',
+      'Define "near location" precisely — 5km radius? City-level? User-selectable?',
+      'Decide notification method: email-only, or in-app + email?',
+      'Define "urgency levels" and their effect on matching/notification priority',
+      'Document all clarified decisions in a Decisions Log file committed to the repo'
+    ],
+    tools: ['SRS document v1.0', 'Notion / Google Docs', 'Draw.io (quick sketches)', 'Miro (team workshops)'],
+    mistakes: [
+      'Assuming "location-based matching" means GPS coordinates — may simply mean city/district input',
+      'Not defining error states clearly — these get discovered and skipped during QA',
+      'Treating non-functional requirements as optional extras — they define production quality',
+      'Not getting sign-off on clarifications — leads to disputes during evaluation'
+    ],
+    bestpractices: [
+      'Create a Requirements Traceability Matrix (RTM) linking each requirement to its test case',
+      'Flag ambiguous requirements in writing and get supervisor sign-off before proceeding',
+      'Separate MVP features (release 1) from "nice to have" (release 2) to manage scope',
+      'Re-read the SRS again after Phase 3 — architecture decisions clarify hidden requirements'
+    ],
+    deps: ['Phase 1'],
+    checkpoint: 'Prioritised requirements list signed off, decisions log committed to repo, MVP feature set defined and agreed'
+  },
+  {
+    num: 3, cat: 'design', title: 'System Architecture Design',
+    subtitle: 'Architecture pattern, system diagram, ADR documentation',
+    time: '3–4 days', effort: 20,
+    why: 'Architecture decisions are the most expensive to change once built. Choosing the right pattern now determines your folder structure, team workflows, scalability ceiling, and how easy testing will be. A wrong choice here can double the total project time.',
+    tasks: [
+      'Choose architecture: Monolithic MVC (strongly recommended for this project scale)',
+      'Draw system architecture diagram: Client → Frontend → REST API → Business Logic → Database',
+      'Define all layers: Presentation, Application/API, Service, Repository, Database',
+      'Plan horizontal scalability path: load balancer, read replicas, Redis cache (for v2)',
+      'Decide on API style: RESTful (recommended) vs GraphQL — document the reasoning',
+      'Plan authentication strategy: JWT access tokens + refresh tokens',
+      'Document every architecture decision with rationale using ADR (Architecture Decision Record) format',
+      'Draw sequence diagram for the critical user flow: Request Blood → Match → Accept → Complete'
+    ],
+    tools: ['Draw.io / Lucidchart', 'Miro (collaborative)', 'C4 Model notation', 'Notion (ADR templates)'],
+    mistakes: [
+      'Over-engineering with microservices for this project scale — adds deployment complexity without benefit',
+      'Not documenting WHY decisions were made — future developers repeat the same debates',
+      'Mixing business logic into controllers — violates separation of concerns and makes testing impossible',
+      'Designing a stateful backend — prevents horizontal scaling and complicates session management'
+    ],
+    bestpractices: [
+      'Follow the Repository pattern to keep all database logic isolated from business logic',
+      'Design for stateless backend from the start — makes horizontal scaling trivial later',
+      'Draw the architecture at 3 levels of abstraction: context → containers → components',
+      'Review architecture against every functional requirement to ensure nothing is missed'
+    ],
+    deps: ['Phase 2'],
+    checkpoint: 'Architecture diagram reviewed and approved, all ADRs written, API style decided, sequence diagrams for all major flows complete'
+  },
+  {
+    num: 4, cat: 'design', title: 'Technology Stack Selection',
+    subtitle: 'Frontend, backend, database, email, hosting decisions',
+    time: '1–2 days', effort: 8,
+    why: 'The wrong tech stack choice wastes weeks of productivity. Match the stack to your team\'s existing skills, the project\'s scale, and the academic timeline. Over-engineering with unfamiliar tools is the #1 reason student projects fail to reach deployment.',
+    tasks: [
+      'Frontend: React.js 18 + Tailwind CSS — component-based, fast UI development',
+      'Backend: Node.js 20 LTS + Express.js OR Python + Django REST Framework',
+      'Database: PostgreSQL 15 — relational, ACID-compliant, ideal for 90-day restriction logic',
+      'ORM: Sequelize (Node) or Django ORM (Python) — never write raw SQL strings',
+      'Authentication: JWT (access token 15min expiry) + Refresh Token (7 days, rotated)',
+      'Email service: Nodemailer + Ethereal for dev, SendGrid for production',
+      'Background jobs: node-cron for request expiry job and 90-day check notifications',
+      'Hosting: Render.com (free tier, backend) + Vercel (free, frontend) + Neon.tech (free PostgreSQL)',
+      'Document all technology choices with version numbers in README'
+    ],
+    tools: ['Node.js 20 LTS', 'React 18', 'PostgreSQL 15', 'Sequelize / Prisma', 'SendGrid', 'Vercel', 'Render.com'],
+    mistakes: [
+      'Using MongoDB for this project — it has strong relational requirements that are painful in document stores',
+      'Skipping a production email service — university servers block bulk outbound email',
+      'Choosing unfamiliar technologies to "learn them" during the project — crashes deadlines',
+      'Not checking hosting costs — "free" tiers often have cold-start delays or storage limits that surprise you'
+    ],
+    bestpractices: [
+      'Pin exact version numbers everywhere — "latest" causes build failures weeks later when a major version drops',
+      'Use .nvmrc to lock the Node.js version across all machines',
+      'Document at least 2 evaluated alternatives per technology choice with rationale for rejection',
+      'Verify all tools run on every team member\'s OS before committing to the stack'
+    ],
+    deps: ['Phase 3'],
+    checkpoint: 'Stack documented in README with version numbers, all team members have tooling installed and verified, hosting accounts created'
+  },
+  {
+    num: 5, cat: 'design', title: 'Folder Structure & Project Scaffolding',
+    subtitle: 'Monorepo layout, dev environment, boilerplate setup',
+    time: '1–2 days', effort: 8,
+    why: 'A well-organised folder structure prevents spaghetti code, makes code reviews clearer, and dramatically speeds up onboarding when new team members join mid-project. It also enforces architectural boundaries automatically.',
+    tasks: [
+      'Create monorepo with /client (React) and /server (Node/Express) at root',
+      'Server structure: /routes, /controllers, /services, /models, /middleware, /utils, /config, /jobs',
+      'Client structure: /components, /pages, /hooks, /context, /services (API layer), /assets, /types',
+      'Create .env.example with every required environment variable (no values — just keys + comments)',
+      'Configure nodemon for backend hot-reload and Vite for frontend dev server',
+      'Set up ESLint + Prettier in both workspaces with shared config',
+      'Add root package.json scripts: dev (start both), test (run all tests), build',
+      'Create docker-compose.yml for local dev: app + postgres + redis containers (optional but professional)'
+    ],
+    tools: ['VS Code + workspace settings', 'Vite', 'nodemon', 'ESLint', 'Prettier', 'Docker Desktop', 'concurrently'],
+    mistakes: [
+      'Putting API calls directly in React components — API layer belongs in /services, not components',
+      'No environment variable management from day one — secrets end up hardcoded in commits',
+      'Missing .gitignore entries for node_modules, .env, dist, .DS_Store — bloats the repository',
+      'Starting development before the scaffold is tested on every team member\'s machine'
+    ],
+    bestpractices: [
+      'Create a /shared folder at root for TypeScript types and constants used by both client and server',
+      'Add path aliases (@ → /src) in Vite config to eliminate ../../../../ relative import hell',
+      'Commit a working "hello world" endpoint and React page before any feature work begins',
+      'Document local dev setup in README with exact commands — test it on a clean machine'
+    ],
+    deps: ['Phase 4'],
+    checkpoint: 'npm install works on all team machines, dev server starts without errors, linting passes on empty project'
+  },
+  {
+    num: 6, cat: 'design', title: 'Database Design & ER Diagram',
+    subtitle: 'Schema, relationships, indexes, constraints, migrations',
+    time: '3–4 days', effort: 25,
+    why: 'The database is the single hardest layer to change once the application is built. A schema mistake caught now takes 30 minutes to fix. The same mistake discovered in Phase 13 takes 3 days of data migration, API updates, and frontend changes.',
+    tasks: [
+      'Design 6 core tables: users, donor_profiles, blood_requests, request_matches, notifications, admin_logs',
+      'users: id (UUID), name, email (UNIQUE), password_hash, role (donor/receiver/admin), verified, created_at, deleted_at',
+      'donor_profiles: id, user_id (FK→users), blood_group, city, latitude, longitude, availability (BOOL), last_donation_date, restriction_until',
+      'blood_requests: id, receiver_id (FK→users), blood_group, urgency (low/medium/critical), city, status (pending/accepted/completed/expired), created_at, expires_at',
+      'request_matches: id, request_id (FK→blood_requests), donor_id (FK→users), status (notified/accepted/rejected), notified_at, responded_at',
+      'notifications: id, user_id (FK→users), type, message, read (BOOL), created_at',
+      'admin_logs: id, admin_id (FK→users), action, target_type, target_id, metadata (JSON), created_at',
+      'Add database indexes: blood_group, city, restriction_until, status, user_id (all FK columns)',
+      'Add CHECK constraints: blood_group IN (\'A+\',\'A-\',\'B+\',\'B-\',\'AB+\',\'AB-\',\'O+\',\'O-\')',
+      'Write all schema as ORM migrations — zero manual SQL ever touches the production database',
+      'Draw formal ER diagram with crow\'s foot notation using dbdiagram.io'
+    ],
+    tools: ['dbdiagram.io', 'Sequelize / Prisma (ORM migrations)', 'pgAdmin 4', 'DBeaver'],
+    mistakes: [
+      'Storing plain-text passwords — NEVER. Always store bcrypt hashes only',
+      'No soft-delete pattern (deleted_at) — hard deleting donors breaks foreign keys in historical requests',
+      'Omitting the request_matches junction table — storing this logic in blood_requests creates an unmaintainable mess',
+      'Using sequential integer IDs — enables enumeration attacks. Use UUID v4 everywhere',
+      'No created_at/updated_at timestamps — makes debugging production issues nearly impossible'
+    ],
+    bestpractices: [
+      'Add database-level constraints as a final safety net, even if the application also validates',
+      'Never modify a migration file after it has been committed — create a new migration instead',
+      'Seed the database with realistic test data (1000+ donors) before any frontend work begins',
+      'Document every table and non-obvious column purpose in a DATA_DICTIONARY.md file'
+    ],
+    deps: ['Phase 5'],
+    checkpoint: 'ER diagram reviewed and approved, all tables created via migrations, seed data loads successfully, indexes verified with EXPLAIN ANALYZE'
+  },
+  {
+    num: 7, cat: 'dev', title: 'Authentication System',
+    subtitle: 'Registration, login, JWT, RBAC, password reset',
+    time: '4–5 days', effort: 30,
+    why: 'Authentication is the gateway to the entire application. A single flaw here can expose every user\'s personal data, allow role escalation (receiver acting as admin), or allow session hijacking. This phase has zero tolerance for shortcuts.',
+    tasks: [
+      'POST /api/v1/auth/register — validate all inputs, hash password (bcrypt cost 12), create user + role-specific profile',
+      'POST /api/v1/auth/login — verify credentials, issue JWT access token (15min) stored in httpOnly cookie + refresh token (7d) in DB',
+      'POST /api/v1/auth/refresh — verify stored refresh token, issue new access + refresh tokens (rotation)',
+      'POST /api/v1/auth/logout — delete refresh token from DB, clear cookie',
+      'GET /api/v1/auth/me — return current user profile decoded from JWT',
+      'POST /api/v1/auth/forgot-password — generate 6-digit OTP, store hashed in DB with 10min expiry, email to user',
+      'POST /api/v1/auth/reset-password — verify OTP, update password, invalidate all refresh tokens',
+      'Create authMiddleware: verify JWT signature, expiry, attach user to req.user',
+      'Create roleMiddleware: requireDonor(), requireReceiver(), requireAdmin() — throw 403 if wrong role',
+      'Rate-limit login: 5 attempts per IP per 15 minutes with exponential backoff',
+      'Write unit tests for all flows including: expired token, wrong password, account not verified'
+    ],
+    tools: ['bcrypt (cost 12)', 'jsonwebtoken', 'cookie-parser', 'express-rate-limit', 'nodemailer', 'jest + supertest'],
+    mistakes: [
+      'Storing JWT in localStorage — XSS attack steals the token. Always use httpOnly cookies',
+      'Not validating email format server-side — client-side validation is trivially bypassed',
+      'Returning "email not found" vs "wrong password" as distinct errors — enables user enumeration',
+      'Not invalidating all sessions on password reset — attacker keeps old refresh token',
+      'Skipping rate limiting on login — allows unlimited brute-force password attempts'
+    ],
+    bestpractices: [
+      'Always return the exact same error message for any login failure: "Invalid credentials"',
+      'Log all authentication events with timestamps, IP address, and user agent',
+      'Use HTTPS everywhere — sending tokens over HTTP makes authentication meaningless',
+      'Share a Postman collection with all auth flows as team documentation of expected behaviour'
+    ],
+    deps: ['Phase 6'],
+    checkpoint: 'All auth endpoints passing unit tests, JWT refresh flow verified, role middleware blocking unauthorized access, rate limiting active'
+  },
+  {
+    num: 8, cat: 'dev', title: 'User & Donor Profile Management',
+    subtitle: 'Profile CRUD, availability toggle, donor search',
+    time: '3–4 days', effort: 20,
+    why: 'Accurate and up-to-date donor profiles are the core data feeding the matching algorithm. Incomplete profiles cause false negatives (eligible donors not matched). Stale availability data causes donors to be contacted when they cannot donate.',
+    tasks: [
+      'GET /api/v1/profile/:id — fetch public profile (name, blood group, city only — no contact details yet)',
+      'PUT /api/v1/profile — update own profile with whitelist of permitted fields only',
+      'POST /api/v1/profile/donor — create donor profile after registration (called in register flow)',
+      'PUT /api/v1/profile/donor/availability — toggle availability true/false (used daily by donors)',
+      'GET /api/v1/donors/search?blood_group=A%2B&city=Mumbai — public filtered search endpoint',
+      'Add comprehensive input validation on all endpoints (express-validator or Zod schemas)',
+      'Admin: GET /api/v1/admin/users — list all users with pagination, filters (role, city, blood group)',
+      'Admin: PUT /api/v1/admin/users/:id/verify — approve a new donor account',
+      'Optional: profile photo upload with multer + Cloudinary (10MB limit, image types only)'
+    ],
+    tools: ['express-validator / Zod', 'multer (file uploads)', 'Cloudinary SDK', 'jest'],
+    mistakes: [
+      'Exposing contact details in search results — reveal only after request is accepted (privacy critical)',
+      'Using req.body directly in UPDATE queries — allows users to modify system-controlled fields like restriction_until',
+      'Letting users manually set restriction_until — must be exclusively system-controlled',
+      'No pagination on search — 50,000 donors in a single response will crash mobile browsers'
+    ],
+    bestpractices: [
+      'Explicitly whitelist every updatable field in PUT handlers — block everything else by default',
+      'Cache donor search results for 60 seconds with Redis or in-memory cache to reduce DB load',
+      'Return only fields necessary for the endpoint — apply principle of least data privilege',
+      'Test profile updates with invalid types, overlength strings, and SQL injection attempts'
+    ],
+    deps: ['Phase 7'],
+    checkpoint: 'Profile CRUD endpoints working with validation, donor search returning correct filtered results, admin list with pagination functional'
+  },
+  {
+    num: 9, cat: 'dev', title: 'Blood Request & Matching System',
+    subtitle: 'Core matching algorithm, compatibility matrix, 90-day engine',
+    time: '5–7 days', effort: 50,
+    why: 'This is the heart of the application. The matching algorithm must handle blood type compatibility correctly, enforce the 90-day restriction without race conditions, and filter by location accurately. Errors here directly impact whether patients receive blood in a real deployment.',
+    tasks: [
+      'POST /api/v1/requests — receiver submits blood request: blood_group, urgency, city, notes',
+      'Build matchDonors(requestId) service: filter by compatible blood_group + city + availability=true + restriction_until < NOW()',
+      'Implement full blood group compatibility matrix: O- → all, O+ → O+/A+/B+/AB+, A- → A-/A+/AB-/AB+, etc.',
+      'GET /api/v1/requests — receiver sees own requests; donor sees open compatible requests in their city',
+      'GET /api/v1/requests/:id — full request details (contact info hidden until accepted)',
+      'PUT /api/v1/requests/:id/accept — donor accepts request (DB transaction: update request status + create match record)',
+      'PUT /api/v1/requests/:id/complete — receiver confirms donation: sets request.status=completed, sets donor.restriction_until=NOW()+90days',
+      'PUT /api/v1/requests/:id/cancel — receiver cancels pending request, releases any accepted donors',
+      'Background job (every hour via node-cron): find requests where expires_at < NOW() AND status=pending, set status=expired',
+      'Background job (daily): find donors where restriction_until < NOW(), send "you can donate again" notification',
+      'Write 64 unit tests for the blood compatibility matrix (8×8 blood type combinations)'
+    ],
+    tools: ['node-cron', 'date-fns / dayjs', 'Sequelize transactions', 'jest'],
+    mistakes: [
+      'Not implementing blood group compatibility — O+ donor CANNOT donate to an AB- patient',
+      'Race condition: two donors simultaneously accepting the same request — causes double-booking. Use SELECT FOR UPDATE',
+      'Calculating 90 days in application code — timezone differences cause off-by-one-day bugs. Calculate in SQL with NOW() + INTERVAL \'90 days\'',
+      'Not expiring old requests — pending requests pile up forever, donors get notified about stale emergencies',
+      'Setting restriction_until on notification, not on completion — donors restricted before they even donate'
+    ],
+    bestpractices: [
+      'Store restriction_until as an absolute UTC timestamp, not as "last_donation_date + 90" recalculated each time',
+      'Wrap the accept + create_match + update_request in a single database transaction with proper isolation level',
+      'Use SELECT FOR UPDATE (pessimistic locking) on the request row during the accept operation to prevent race conditions',
+      'Test expiry job by inserting a row with expires_at = NOW() - 1 hour and verifying it gets expired'
+    ],
+    deps: ['Phase 8'],
+    checkpoint: 'Matching algorithm returning only compatible, available, unrestricted donors. 90-day restriction blocking correctly. Race condition test passing. Expiry job working.'
+  },
+  {
+    num: 10, cat: 'dev', title: 'Notification System',
+    subtitle: 'Async email queue, in-app notifications, templates',
+    time: '3–4 days', effort: 20,
+    why: 'Donors must be reached within minutes during critical blood requests. A synchronous or unreliable notification system creates a bottleneck and silent failures. The notification pipeline is what transforms this from a directory into an emergency coordination platform.',
+    tasks: [
+      'Build NotificationService: sendEmail(to, template, data), createInAppNotification(userId, type, message)',
+      'Email templates (Handlebars/HTML): new blood request alert, request accepted by donor, donation confirmed, restriction lifted, account verified',
+      'Implement async email queue: Bull + Redis (production) or simple DB queue (simple setup)',
+      'GET /api/v1/notifications — paginated list of user\'s notifications, sorted newest first',
+      'PUT /api/v1/notifications/:id/read — mark single notification as read',
+      'PUT /api/v1/notifications/read-all — mark all as read',
+      'Unread count included in GET /api/v1/auth/me response for the notification bell badge',
+      'Respect donor notification preferences: email, in-app, or both (stored in donor_profiles)',
+      'Rate-limit email delivery: maximum 3 emails per hour to any single donor',
+      'Test all email templates using Ethereal (free fake SMTP) in development'
+    ],
+    tools: ['nodemailer', 'Handlebars (templates)', 'Bull + Redis (queue)', 'Ethereal (dev SMTP)', 'SendGrid (production)'],
+    mistakes: [
+      'Sending emails synchronously in the API request handler — adds 1-3 seconds to response time',
+      'No unsubscribe mechanism — violates CAN-SPAM and GDPR. Every email must have an unsubscribe link',
+      'Not logging notification delivery failures — silent failures mean donors never learn about emergencies',
+      'HTML-only emails — always include a plain text fallback for email clients that block HTML'
+    ],
+    bestpractices: [
+      'Always process email delivery asynchronously via a queue — decouple notification from request handling',
+      'Test every email template in Gmail, Outlook, and Apple Mail before going live — rendering differs significantly',
+      'Store notification_log records for every sent email — enables debugging and proves delivery'
+    ],
+    deps: ['Phase 9'],
+    checkpoint: 'Emails delivered successfully in test environment with correct templates. In-app notifications created, retrieved, and marked as read. Unread count accurate.'
+  },
+  {
+    num: 11, cat: 'dev', title: 'Admin Dashboard — Backend',
+    subtitle: 'Admin APIs, user verification, stats, audit logging',
+    time: '3–4 days', effort: 20,
+    why: 'Admins need to verify donor identities, resolve disputes, monitor platform health, and investigate misuse. Without a well-built admin system, the platform cannot be operated responsibly — and your supervisor cannot evaluate system integrity.',
+    tasks: [
+      'GET /api/v1/admin/users — paginated user list with filters: role, city, blood_group, verified, suspended',
+      'PUT /api/v1/admin/users/:id/verify — approve donor account, trigger welcome email',
+      'PUT /api/v1/admin/users/:id/suspend — suspend account with mandatory reason field, notify user',
+      'DELETE /api/v1/admin/users/:id — soft delete only (set deleted_at, never remove from DB)',
+      'GET /api/v1/admin/stats — dashboard metrics: total users, active donors, requests this week/month, completion rate, average response time',
+      'GET /api/v1/admin/requests — all blood requests with status, urgency, date range filters',
+      'GET /api/v1/admin/logs — paginated admin activity log with actor, action, target, timestamp',
+      'POST /api/v1/admin/broadcast — send email announcement to all verified users',
+      'Protect ALL /admin/* routes with requireAdmin middleware — test that non-admins get 403'
+    ],
+    tools: ['express-validator', 'date-fns', 'json2csv (data export)', 'jest + supertest'],
+    mistakes: [
+      'Hard deleting users — destroys foreign key references and removes audit trail permanently',
+      'No audit log for admin actions — administrators could misuse access without accountability',
+      'Admin endpoints reachable by authenticated non-admin users due to missing middleware',
+      'Returning unsanitised user data including password_hash fields in admin user lists'
+    ],
+    bestpractices: [
+      'Log every admin action to admin_logs immediately before executing it — log the intent, not the outcome',
+      'Require a reason field for all destructive admin actions (suspend, delete)',
+      'Add IP restriction to admin routes in production — only allow access from known networks if possible',
+      'Send automated alerts to admin email if login attempts spike or if an unusual number of suspensions occur'
+    ],
+    deps: ['Phase 10'],
+    checkpoint: 'All admin endpoints tested in Postman with role boundary checks. Stats endpoint returning accurate aggregates. Admin actions appearing in audit log.'
+  },
+  {
+    num: 12, cat: 'dev', title: 'Security Implementation',
+    subtitle: 'Helmet, CORS, rate limiting, input sanitisation, OWASP audit',
+    time: '3–4 days', effort: 25,
+    why: 'A healthcare-adjacent application handling names, blood types, contact details, and location data is a high-value target. Security cannot be retrofitted — it must be woven into every layer. One vulnerability can expose every user\'s sensitive health information.',
+    tasks: [
+      'Enable Helmet.js — automatically sets 14 security HTTP headers including CSP, HSTS, X-Frame-Options',
+      'Configure CORS: whitelist only the exact production frontend origin — no wildcard (*) in production',
+      'Global rate limiting: 100 requests per 15 minutes per IP on all API routes',
+      'Stricter rate limits: /login (5/15min), /register (3/hour), /forgot-password (3/hour)',
+      'Input sanitisation with express-validator on every POST and PUT endpoint',
+      'Use parameterised queries exclusively through ORM — never string-concatenate SQL',
+      'XSS prevention: sanitise all user-generated content (DOMPurify on frontend, validator.escape on backend)',
+      'Add CSRF protection on all mutation endpoints (double-submit cookie pattern)',
+      'Content Security Policy header: restrict script sources to self + trusted CDNs only',
+      'Run OWASP ZAP automated scan against local running application — fix all High/Medium findings',
+      'Run npm audit — fix or document all High severity dependency vulnerabilities',
+      'Dependency scanning: set up Dependabot or Snyk to alert on future vulnerabilities'
+    ],
+    tools: ['Helmet.js', 'express-rate-limit', 'express-validator', 'OWASP ZAP (free)', 'Snyk / Dependabot', 'cors package'],
+    mistakes: [
+      'CORS wildcard (*) in production — allows any website to make authenticated requests on behalf of your users',
+      'Trusting X-Forwarded-For header without validation — trivially spoofed to bypass IP-based rate limits',
+      'Not validating file upload types by MIME type and file signature — malicious executables disguised as images',
+      'Logging request bodies in production — passwords, tokens, and personal data end up in log files'
+    ],
+    bestpractices: [
+      'Run npm audit before every release and after every dependency update',
+      'Store all secrets in environment variables — rotate them if anyone leaves the team',
+      'Enforce HTTPS redirect at the application level — any HTTP request returns 301 to HTTPS',
+      'Document all security decisions in a SECURITY.md file — shows examiners intentional design'
+    ],
+    deps: ['Phase 11'],
+    checkpoint: 'OWASP ZAP scan shows zero High severity findings. Helmet headers visible in browser DevTools. Rate limiting blocking excess requests. npm audit clean.'
+  },
+  {
+    num: 13, cat: 'dev', title: 'Frontend Development — All Pages',
+    subtitle: 'React app, routing, state management, responsive UI',
+    time: '7–10 days', effort: 50,
+    why: 'The frontend is what users actually experience. During a real blood emergency, a confusing form or slow page can delay a life-saving donation. Every interaction must be fast, clear, and work flawlessly on a mobile phone with limited connectivity.',
+    tasks: [
+      'Set up React Router v6 with protected route component (PrivateRoute by role)',
+      'Create AuthContext + useAuth() hook for global authentication state',
+      'Build ApiService layer: Axios instance with JWT interceptor, automatic token refresh, error handling',
+      'Landing page: compelling hero, how-it-works (3 steps), live stats counter, urgency CTA',
+      'Register page: role selector (Donor / Receiver) → dynamically different form fields per role',
+      'Login page: form with remember me, forgot password link, loading and error states',
+      'Donor Dashboard: availability toggle (large, prominent), active requests matching their blood group, donation history timeline',
+      'Receiver Dashboard: create request button, my requests list with status badges and timeline',
+      'Search Donors page: blood group + city filters, results grid with availability indicator, request button',
+      'Request detail page: status timeline, donor contact reveal only after acceptance, completion confirmation',
+      'Notification panel: bell icon in nav with unread count badge, dropdown list, mark as read',
+      'Admin Dashboard: stats cards, user management table, request monitoring table',
+      'Make every page fully responsive: test on 375px (iPhone SE), 768px (tablet), 1280px (desktop)'
+    ],
+    tools: ['React 18', 'React Router v6', 'Tailwind CSS 3', 'React Query v5', 'Axios', 'React Hook Form + Zod', 'Recharts'],
+    mistakes: [
+      'Fetching data with plain useEffect — use React Query for automatic caching, background refetch, and loading states',
+      'No loading, error, and empty states — blank screens look indistinguishable from broken applications',
+      'Storing auth tokens in localStorage — use httpOnly cookies set by the server and React Context for UI state only',
+      'Building desktop-first and trying to make mobile work afterwards — always build mobile-first'
+    ],
+    bestpractices: [
+      'Build components atomically: atoms (Button, Input, Badge) → molecules (SearchFilter) → organisms (DonorCard) → pages',
+      'Use React Hook Form with Zod schema validation for every form — unified validation logic',
+      'Add skeleton loading screens for all data-fetching components — dramatically better perceived performance',
+      'Optimistic UI updates for the availability toggle: update instantly, silently revert on API failure'
+    ],
+    deps: ['Phase 12'],
+    checkpoint: 'All pages rendering correctly, routing and role guards working, all forms submitting and receiving API responses, tested on mobile viewport'
+  },
+  {
+    num: 14, cat: 'dev', title: 'Admin Dashboard — Frontend',
+    subtitle: 'Admin panel UI, data tables, analytics charts',
+    time: '3–4 days', effort: 20,
+    why: 'Administrators are power users who need a fast, information-dense interface to monitor platform health, handle user issues, and generate reports for academic evaluation. A good admin panel is also a demonstration of the full system\'s capabilities to your supervisor.',
+    tasks: [
+      'Admin layout with collapsible sidebar navigation (separate from donor/receiver layouts)',
+      'Stats dashboard: metric cards for total users, active donors, this week\'s requests, completion rate',
+      'Line chart: blood requests per day for the last 30 days (Recharts)',
+      'Donut chart: breakdown of requests by blood group',
+      'User management table: sortable columns, search, filter by role/status, inline verify/suspend actions',
+      'Blood requests table: filter by status, blood group, urgency, date range',
+      'Export to CSV button for users and requests tables',
+      'Activity log viewer: paginated, filterable by action type',
+      'Admin-specific route guard: useEffect redirect for non-admin users, not just hidden links',
+      'Confirmation modal for all destructive actions with reason input field'
+    ],
+    tools: ['Recharts', 'TanStack Table v8', 'React Query', 'date-fns', 'react-csv'],
+    mistakes: [
+      'Building admin as a separate application — share the same React app with role-based layout switching',
+      'Client-side only pagination for admin tables — 10,000 users in a single response crashes the browser',
+      'No confirmation step for destructive actions — accidental suspensions with no undo',
+      'Showing the admin panel link to non-admin users — guard with role check, not just hidden HTML'
+    ],
+    bestpractices: [
+      'All admin table filtering and sorting must be server-side — never load all rows and filter in JS',
+      'Add keyboard shortcuts for frequently used admin actions (e.g., V to verify selected user)',
+      'Show a "last updated" timestamp on all dashboard stats — admins need to know data freshness'
+    ],
+    deps: ['Phase 13'],
+    checkpoint: 'Admin can log in, view accurate stats, manage users with verify/suspend, view all requests with filters, export CSV'
+  },
+  {
+    num: 15, cat: 'dev', title: 'API Design & Documentation',
+    subtitle: 'OpenAPI/Swagger spec, versioning, Postman collection',
+    time: '2–3 days', effort: 12,
+    why: 'Without API documentation, the frontend team reverse-engineers the API from reading backend code. Supervisors and evaluators expect professional documentation. Good documentation also reveals inconsistencies in your API design before users discover them.',
+    tasks: [
+      'Adopt API versioning from day one: all routes prefixed with /api/v1/',
+      'Write OpenAPI 3.0 specification using swagger-jsdoc JSDoc annotations on each route',
+      'Set up swagger-ui-express to serve interactive documentation at /api-docs',
+      'Document every endpoint: HTTP method, path, description, request body schema, response schemas (200, 400, 401, 403, 404, 422, 500)',
+      'Standardise all API responses: { success: boolean, data: T | null, error: string | null, meta?: { page, total } }',
+      'Document authentication flow with a sequence diagram in the README',
+      'Export and commit Postman collection (JSON) to /docs folder in the repository',
+      'Generate TypeScript types from OpenAPI spec using openapi-typescript for the frontend to import'
+    ],
+    tools: ['swagger-jsdoc', 'swagger-ui-express', 'Postman', 'openapi-typescript', 'Redoc (alternative UI)'],
+    mistakes: [
+      'Writing API documentation after the code is finished — it gets skipped and is always incomplete',
+      'No versioning — /api/users means you can never change the response without breaking existing clients',
+      'Inconsistent response shapes — some endpoints return {data:...}, others return the object directly',
+      'Documenting only success cases — error responses and validation failures are equally important'
+    ],
+    bestpractices: [
+      'Use HTTP status codes semantically: 201 Created, 204 No Content, 400 Bad Request, 422 Unprocessable Entity',
+      'Never change a v1 endpoint response shape — add a new field or create v2 instead',
+      'Validate your OpenAPI spec with a linter (spectral) to catch structural errors'
+    ],
+    deps: ['Phase 11'],
+    checkpoint: 'Swagger UI live at /api-docs with all endpoints documented, Postman collection shared with team and committed to repo, response shapes consistent across all endpoints'
+  },
+  {
+    num: 16, cat: 'deploy', title: 'Testing Phase',
+    subtitle: 'Unit, integration, E2E, performance, UAT, security',
+    time: '5–7 days', effort: 35,
+    why: 'The 90-day restriction logic, blood type compatibility matrix, race conditions in the accept flow, and email delivery — all of these are complex enough to have non-obvious bugs that manual testing will not catch. Automated tests provide a safety net for every future change.',
+    tasks: [
+      'Unit tests (Jest): auth service, matchDonors(), blood compatibility matrix (64 combinations), 90-day calculation, notification service',
+      'Integration tests (Supertest + test DB): all API endpoints, testing full request/response cycle against real database',
+      'Test the accept race condition: spawn 2 concurrent requests to accept the same blood request — only one should succeed',
+      'Test the expiry background job: insert a request with expires_at in the past, run job, verify status=expired',
+      'E2E tests (Playwright): full registration → login → create request → donor accepts → completion flow on a real browser',
+      'E2E: admin verify user flow, admin suspend flow, admin stats page loads with data',
+      'Security tests: attempt JWT manipulation, SQL injection in search params, XSS in profile name fields',
+      'Performance test (k6 or Artillery): simulate 500 concurrent users hitting the donor search endpoint — must respond in under 2 seconds for 95% of requests',
+      'User Acceptance Testing: 5 non-technical testers complete scripted scenarios, document all confusion points',
+      'Achieve minimum 70% line coverage on backend service layer (Istanbul/nyc report)'
+    ],
+    tools: ['Jest 29', 'Supertest', 'Playwright', 'k6 / Artillery', 'Istanbul/nyc (coverage)', 'faker.js (test data)'],
+    mistakes: [
+      'Testing only the happy path — real bugs live exclusively in error paths and edge cases',
+      'Using the production or development database for tests — always use a separate, wiped-clean test database',
+      'Skipping User Acceptance Testing — technical testers miss usability problems real users find in 30 seconds',
+      'Not testing on slow connections — blood donors may be on 3G mobile data in an emergency'
+    ],
+    bestpractices: [
+      'Write the test for a bug before fixing it — prevents the exact same bug from being reintroduced later',
+      'Run all tests automatically in GitHub Actions CI on every pull request — never merge failing tests',
+      'Use faker.js to generate diverse test data — testing with "test@test.com" misses encoding edge cases'
+    ],
+    deps: ['Phase 14', 'Phase 15'],
+    checkpoint: '70%+ backend code coverage, 0 critical bugs open, all E2E flows passing in CI, performance test meeting the 2s/500-user SLA'
+  },
+  {
+    num: 17, cat: 'deploy', title: 'CI/CD Pipeline & Deployment Setup',
+    subtitle: 'GitHub Actions, Docker, automated test → build → deploy',
+    time: '3–4 days', effort: 20,
+    why: 'Manual deployments are error-prone, slow, and non-reproducible. A CI/CD pipeline means every merge to main automatically runs tests, builds a container, and deploys. It also means every team member can deploy safely without memorising a checklist.',
+    tasks: [
+      'GitHub Actions workflow: on pull request → lint → unit tests → integration tests; on merge to main → build → deploy to staging',
+      'Production GitHub Actions: on tag v*.*.* → deploy to production environment',
+      'Write multi-stage Dockerfile for backend: builder stage (npm ci + compile) → runtime stage (node:alpine, no devDependencies)',
+      'docker-compose.yml for local dev: backend + postgres + redis with persistent volumes',
+      'Database migration step in CI pipeline: run migrations automatically before deploying new code',
+      'Frontend build: Vite build → output to /dist → deploy to Vercel via Vercel CLI in GitHub Action',
+      'Tag Docker images by Git commit SHA (not "latest") — enables precise rollback',
+      'Rollback procedure document: identify bad deploy → redeploy previous SHA tag → verify',
+      'Add deployment notification to team Slack/Discord on success and failure'
+    ],
+    tools: ['GitHub Actions', 'Docker 24', 'docker-compose v3', 'Vercel CLI', 'Render.com deploy hooks'],
+    mistakes: [
+      'Deploying without running migrations first — new application code requires the new schema to exist',
+      'No rollback plan or documented procedure — a bad production deployment stays broken for hours',
+      'Using "latest" Docker tag — impossible to roll back to a specific working version',
+      'Storing production secrets in the Dockerfile or docker-compose.yml — they end up in the Git history'
+    ],
+    bestpractices: [
+      'Store ALL production credentials in GitHub Actions secrets — never in any file in the repository',
+      'Deploy frontend to Vercel (global CDN edge) separately from backend — zero coupling, faster assets',
+      'Keep staging and production environments structurally identical — what works in staging must work in production',
+      'Document the deployment process in DEPLOYMENT.md with step-by-step commands'
+    ],
+    deps: ['Phase 16'],
+    checkpoint: 'CI pipeline passing on all branches, successful automated deployment to staging environment, rollback procedure tested and documented'
+  },
+  {
+    num: 18, cat: 'deploy', title: 'Hosting, Domain & Production Hardening',
+    subtitle: 'DNS, SSL, monitoring, error tracking, environment config',
+    time: '2–3 days', effort: 15,
+    why: 'Production behaves differently from development in ways that consistently surprise teams: SSL certificate provisioning, environment variable injection, database connection pool limits, cold starts, and DNS propagation. Understanding these prevents last-minute failures before your evaluation.',
+    tasks: [
+      'Backend: deploy to Render.com (free tier — note: sleeps after 15min inactivity) or Railway.app ($5/month — always-on)',
+      'Frontend: deploy to Vercel (free tier, global CDN, automatic HTTPS, automatic preview deployments on PRs)',
+      'Database: Neon.tech (free serverless PostgreSQL) or Render Managed PostgreSQL',
+      'Domain: purchase on Namecheap (~$10/year) or use the free hosting subdomain for academic submission',
+      'SSL: automatically managed by Render/Vercel — verify certificate is active and HTTPS redirects work',
+      'Add a UptimeRobot monitor (free) — pings every 5 minutes, emails team on downtime',
+      'If using Render free tier: add a cron job to ping your own API every 14 minutes to prevent sleep',
+      'Set up Sentry.io (free tier) — captures all uncaught exceptions with full stack trace and user context',
+      'Set up Logtail or Papertrail (free tier) — aggregate server logs that survive restarts',
+      'Configure production database connection pool: max 10 connections (free PostgreSQL tier limit)',
+      'Run all database migrations on production database before switching DNS',
+      'Seed the production database with the admin account'
+    ],
+    tools: ['Render.com', 'Vercel', 'Neon.tech', 'UptimeRobot', 'Sentry', 'Logtail', 'Namecheap'],
+    mistakes: [
+      'Forgetting to set NODE_ENV=production — app runs in development mode, leaking full stack traces to users',
+      'Not testing the production build locally before deploying: npm run build && node dist/server.js',
+      'Altering the production database schema manually instead of running migrations',
+      'Not having monitoring in place before announcing the live URL — first issues go undetected'
+    ],
+    bestpractices: [
+      'Always take a full database backup before running any migration on the production database',
+      'Test the live URL on actual mobile hardware over cellular data before submission',
+      'Keep a production incident log — documents what went wrong and how it was resolved, useful in the evaluation'
+    ],
+    deps: ['Phase 17'],
+    checkpoint: 'Live URL accessible over HTTPS, Sentry receiving a test error, UptimeRobot monitoring active, application fully functional on mobile'
+  },
+  {
+    num: 19, cat: 'maintain', title: 'Maintenance, Handover & Future Roadmap',
+    subtitle: 'Full documentation, v1.0.0 release, post-mortem, enhancements',
+    time: '2–3 days', effort: 10,
+    why: 'Projects do not end at deployment. A well-documented handover means your supervisor can evaluate the work fully, future developers can extend it without starting from zero, and you can revisit it in 6 months without confusion. Documentation is itself a deliverable.',
+    tasks: [
+      'Write comprehensive README: prerequisites, local setup (step by step), environment variables table, architecture overview, API overview, deployment guide',
+      'Write CONTRIBUTING.md: branching strategy, commit message format, PR process, code review checklist',
+      'Write DEPLOYMENT.md: full production deployment procedure, rollback steps, common issues and fixes',
+      'Document all known limitations and technical debt in TECHNICAL_DEBT.md',
+      'Write post-mortem document: what went according to plan, what went wrong, what the team would do differently',
+      'Tag the GitHub repository as v1.0.0 release with a detailed CHANGELOG',
+      'Archive the Postman collection and database ER diagram in /docs',
+      'Future Enhancement roadmap (Phase 2+): real-time notifications via WebSockets (Socket.io), React Native mobile app, geolocation search with PostGIS and GPS, blood bank API integration, multi-language (i18n) support, donor gamification (badges for donation milestones)'
+    ],
+    tools: ['GitHub Releases + CHANGELOG', 'MkDocs or Docusaurus (documentation site)', 'Notion (post-mortem template)'],
+    mistakes: [
+      'Skipping the runbook document — six months later no one knows how to restart the server or add an admin',
+      'Not documenting environment variable purposes — next developer sets wrong values and spends hours debugging',
+      'Making the GitHub repository private after submission — academic portfolio pieces should be publicly visible',
+      'No post-mortem — teams that skip this repeat the same mistakes on the next project'
+    ],
+    bestpractices: [
+      'Use semantic versioning: MAJOR.MINOR.PATCH — v1.0.0 for first production release',
+      'Write a 1-page architecture summary as an appendix to your academic submission report',
+      'Record a 3-minute screen recording demo of all core flows — attach to the GitHub release as a demonstration'
+    ],
+    deps: ['Phase 18'],
+    checkpoint: 'README enables a new developer to run the project in under 10 minutes. v1.0.0 tagged. Post-mortem written. Project presentable to academic evaluators with full documentation.'
+  }
+];
+
+const catLabels = { planning:'Planning', design:'Design', dev:'Dev', deploy:'Deploy', maintain:'Maintain' };
+
+function filterPhases(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.phase-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+function togglePhase(card) {
+  const isOpen = card.classList.contains('open');
+  if (!isOpen) {
+    document.querySelectorAll('.phase-card.open').forEach(c => c.classList.remove('open'));
+  }
+  card.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+function icon(path) {
+  return `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${path}"/></svg>`;
+}
+
+function buildCard(p) {
+  const depHTML = p.deps.length
+    ? p.deps.map(d => `<span class="dep-pill">${d}</span>`).join('')
+    : `<span class="no-dep">None — can start immediately</span>`;
+
+  const card = document.createElement('div');
+  card.className = `phase-card cat-${p.cat}`;
+  card.dataset.cat = p.cat;
+
+  card.innerHTML = `
+    <div class="phase-header" onclick="togglePhase(this.parentElement)">
+      <div class="phase-num-wrap">
+        <div class="phase-num">P${String(p.num).padStart(2,'0')}</div>
+      </div>
+      <div class="phase-meta">
+        <div class="phase-title">${p.title}</div>
+        <div class="phase-subtitle">${p.subtitle}</div>
+      </div>
+      <div class="phase-right">
+        <span class="badge-cat">${catLabels[p.cat]}</span>
+        <span class="badge-time">${p.time}</span>
+        <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="why-block">
+        <strong>Why this phase matters</strong>
+        ${p.why}
+      </div>
+      <div class="body-grid">
+        <div class="section-card full">
+          <div class="section-head">
+            ${icon('M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4')}
+            <span class="section-head-label">What to do</span>
+          </div>
+          <ul class="item-list">
+            ${p.tasks.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="section-card">
+          <div class="section-head">
+            ${icon('M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4')}
+            <span class="section-head-label">Tools &amp; technologies</span>
+          </div>
+          <div class="tech-row">
+            ${p.tools.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-head">
+            ${icon('M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z')}
+            <span class="section-head-label">Best practices</span>
+          </div>
+          <ul class="item-list check-list">
+            ${p.bestpractices.map(b => `<li>${b}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="section-card">
+          <div class="section-head">
+            ${icon('M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z')}
+            <span class="section-head-label">Common mistakes to avoid</span>
+          </div>
+          <ul class="item-list warn-list">
+            ${p.mistakes.map(m => `<li>${m}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="section-card">
+          <div class="section-head">
+            ${icon('M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1')}
+            <span class="section-head-label">Dependencies (must complete first)</span>
+          </div>
+          <div class="dep-row">${depHTML}</div>
+        </div>
+        <div class="section-card">
+          <div class="section-head">
+            ${icon('M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z')}
+            <span class="section-head-label">Relative effort</span>
+          </div>
+          <div class="effort-bar-label">
+            <span>Complexity</span>
+            <span>${p.effort}/50</span>
+          </div>
+          <div class="effort-bar-bg">
+            <div class="effort-bar-fill" style="width:${(p.effort/50*100).toFixed(0)}%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="checkpoint-block">
+        <div class="checkpoint-label">Phase exit checkpoint</div>
+        <div class="checkpoint-text">${p.checkpoint}</div>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+const list = document.getElementById('phaseList');
+phases.forEach(p => list.appendChild(buildCard(p)));
+
+// Scroll to top button
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+</script>
+</body>
+</html>
